@@ -1,5 +1,7 @@
 var Sequelize   = require("sequelize");
 var model       = require("./model");
+var userModel   = require("../User/model");
+var questionModel = require("../Question/model");
 
 var Answer = function() {
     this.add = function(answer) {
@@ -39,7 +41,16 @@ var Answer = function() {
             model.findAll({
                 where:{
                     questionId: questionId
-                }
+                },
+                include: [
+                    {
+                        model: questionModel
+                    },
+                    {
+                        model: userModel,
+                        attributes:['name']
+                    }
+                ]
             }).then(answers => {
                 resolve({status: 200, data: answers, message: "Success get request"});
             }).catch(err => {

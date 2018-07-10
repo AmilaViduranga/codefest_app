@@ -1,6 +1,7 @@
 var Sequelize   = require("sequelize");
 var model       = require("./model");
 var answerModel = require("../Answer/model");
+var userModel   = require("../User/model");
 
 var Question = function() {
     this.add = function(question) {
@@ -42,6 +43,9 @@ var Question = function() {
                 },
                 include: [{
                     model: answerModel
+                }, {
+                    model: userModel,
+                    attributes: ['name']
                 }]
             }).then(respond => {
                 resolve({status: 200, data: respond, message: "success get request"});
@@ -56,6 +60,9 @@ var Question = function() {
             model.findAll({
                 include:[{
                     model: answerModel
+                }, {
+                    model: userModel,
+                    attributes: ['name']
                 }]
             }).then(respond => {
                 resolve({status: 200, data: respond, message: "success get request"});
