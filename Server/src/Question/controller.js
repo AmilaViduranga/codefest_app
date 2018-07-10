@@ -55,8 +55,7 @@ var Question = function() {
         return new Promise((resolve, reject) => {
             model.findAll({
                 include:[{
-                    model: answerModel,
-                    where:{ questionId: Sequelize.col('question.id')}
+                    model: answerModel
                 }]
             }).then(respond => {
                 resolve({status: 200, data: respond, message: "success get request"});

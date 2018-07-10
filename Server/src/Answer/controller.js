@@ -20,9 +20,9 @@ var Answer = function() {
                 }
             }).then(dbAnswer => {
                 dbAnswer.update({
-                    answer: dbAnswer.answer,
-                    userId: dbAnswer.userId,
-                    questionId: dbAnswer.questionId
+                    answer: answer.answer,
+                    userId: answer.userId,
+                    questionId: answer.questionId
                 }).then(respond => {
                     resolve({status: 200, data: respond, message: "Update Successfully"});
                 }).catch(err => {
