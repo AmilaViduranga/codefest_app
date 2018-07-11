@@ -5,9 +5,9 @@ var relationship        = require("./src/relationship");
 var Routes              = require("./src/routes");
 
 app = express();
+app.use(cors());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(cors());
 app.use("/", Routes);
 
 app.listen("8080", "localhost", "0.0.0.0", function() {

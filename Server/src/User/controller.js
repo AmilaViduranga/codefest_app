@@ -79,7 +79,7 @@ var Controller = function() {
         return new Promise((resolve, reject) => {
             this.getSingleByName(authInfo.name).then(user => {
                 if(user.data.password == authInfo.password) {
-                    resolve({status: 200, message: "Login Success"});
+                    resolve({status: 200, message: "Login Success", user: {name: user.data.name, id: user.data.id}});
                 }
                 reject({status: 403, message: "Invalid Attempt"});
             }).catch(err => {

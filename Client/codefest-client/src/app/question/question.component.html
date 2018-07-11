@@ -12,44 +12,69 @@
         <div class="card">
           <div class="card-body">
             <label for="new_question">Type New Question:</label>
-            <textarea class="form-control" rows="3" id="new_question"></textarea><br>
-            <button class="btn btn-success float-right">
+            <textarea class="form-control" rows="3" id="new_question" name="newQuestion" [(ngModel)]="newQuestion"></textarea><br>
+            <button class="btn btn-success float-right" (click)="addQuestion()">
               <i class="fa fa-plus"></i>
               Add Question
             </button>
           </div>
         </div><br><br>
         <!-- view available question list-->
-        <div class="row">
-          <div class="col-sm-1">
-            <i class="fa fa-3x fa-user"></i><br/>
-            <p>Amila</p>
-          </div>
-          <div class="col-sm-11">
-            <textarea class="form-control" rows="3"></textarea><br>
+        <div  *ngIf="availableQuestions">
+          <div *ngFor="let question of availableQuestions">
+            <div class="row">
+              <div class="col-sm-1">
+                <i class="fa fa-3x fa-user"></i><br/>
+                <p>{{question.user.name}}</p>
+              </div>
+              <div class="col-sm-11">
+                <textarea class="form-control" rows="3">{{question.question}}</textarea><br>
+                <button class="btn btn-primary float-right" (click)="displayAnswers(question)">
+                  <i class="fa fa-eye"></i>
+                  View Answers
+                </button>
+              </div>
+            </div><br><br>
           </div>
         </div>
-        <button class="btn btn-danger float-right">
-          <i class="fa fa-pen"></i>
-          Edit Question
-        </button>
-        <button class="btn btn-primary float-right">
-          <i class="fa fa-eye"></i>
-          View Answers
-        </button>
       </div>
       <!-- answer panel ----------------------------------------------------------------------------->
-      <div class="col-sm-6">
+      <div class="col-sm-6" *ngIf="availableAnswers">
         <h3>
           <i class="fa fa-pen"></i>Answer Panel
-        </h3><br><br>
-        <div class="row">
+          <button class="btn btn-success" (click)="enableAnswer()">
+            <i class="fa fa-plus"></i>
+            Add Answer
+          </button> <br>
+        </h3>
+        <div class="card">
+          <div class="card-body">
+            <label for="update_question">Question:</label>
+            <textarea class="form-control" rows="3" id="update_question" [(ngModel)]="updateQuestionValue"></textarea><br>
+            <button class="btn btn-danger float-right" *ngIf="selectedQuestion.user.name ==  currentUser" (click)="editQuestion()">
+            <i class="fa fa-pen"></i>
+            Edit Question
+            </button>
+          </div>
+        </div><br>
+        <div class="card" *ngIf="isAnswering">
+          <div class="card-body">
+            <label for="new_answer">Type New Answer:</label>
+            <textarea class="form-control" rows="3" id="new_answer" [(ngModel)]="newAnswer"></textarea><br>
+            <button class="btn btn-primary float-right" (click)="addAnswer()">
+              <i class="fa fa-save"></i>
+              Save
+            </button>
+          </div>
+        </div>
+        <br><br>
+        <div class="row" *ngFor="let answer of availableAnswers">
           <div class="col-sm-2">
             <i class="fa fa-3x fa-user"></i><br/>
-            <p>Amila</p>
+            <p>{{answer.user.name}}</p>
           </div>
           <div class="col-sm-10">
-            <textarea class="form-control" rows="3"></textarea><br>
+            <textarea class="form-control" rows="3">{{answer.answer}}</textarea><br>
           </div>
         </div>
       </div>
